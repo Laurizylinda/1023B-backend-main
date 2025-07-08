@@ -1,7 +1,6 @@
-import { FastifyInstance } from "fastify";
-import { conexao } from "mysql2";
-
-export async function produtosRoutes(fastify: FastifyInstance) {
+import mysql from 'mysql2/promise';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
+import cors from '@fastify/cors'
 
   fastify.get("/produtos", async () => {
     const [rows] = await conexao.execute("SELECT * FROM produtos");

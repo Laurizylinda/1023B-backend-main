@@ -1,3 +1,4 @@
+//sheron, aurizy e Menegassi
 import mysql from 'mysql2/promise';
 import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import cors from '@fastify/cors';
@@ -122,3 +123,6 @@ app.listen({ port: 8000 }, (erro, endereco) => {
   }
   console.log(` Fastify iniciado em: ${endereco}`);
 });
+
+
+
