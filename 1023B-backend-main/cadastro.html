@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Estudante</title>
+</head>
+
+<body>
+    <form onsubmit="event.preventDefault();trataForm()">
+        <input type="text" id="id" name="id" placeholder="Id">
+        <input type="text" name="nome" id="nome" placeholder="Nome">
+        <input type="submit" value="Enviar">
+    </form>
+    <script>
+        async function trataForm() {
+            const idInput = document.getElementById("id")
+            const idNome = document.getElementById("nome")
+            const id = idInput.value
+            const nome = idNome.value
+
+            const objEstudante = {
+                id,
+                nome
+            }
+            try {
+                const resposta = await fetch("http://localhost:8001/estudantes", {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(objEstudante)
+                })
+                if(resposta.status===404){
+                    alert("Estudante Não foi excluído")
+                }
+                if(resposta.status===400){
+                    const dados = await resposta.json()
+                    alert(`Deu erro do lado do servidor\n" ${dados.mensagem}`)
+                }
+                if(resposta.status===200){
+                    alert("Estudante cadastrado com sucesso")
+                }
+            }catch(erro){
+                console.log(erro)
+                alert("Deu algo errado na requisição do post! \n"+ 
+                "Você ligou o BACKEND com NPM RUN dev?")
+            }
+            
+
+
+        }
+    </script>
+</body>
+
+</html>
